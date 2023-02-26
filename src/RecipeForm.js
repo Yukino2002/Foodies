@@ -1,11 +1,11 @@
-import React, {useState} from "react"
-import {Paper, Stack, styled, TextField} from "@mui/material";
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import React, { useState } from "react"
+import { Paper, Stack, styled, TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Box from '@mui/material/Box';
 import recipes from './database/services/recipes.js';
 import { getAuth } from "firebase/auth";
-import {useNavigate} from "react-router-dom";
-import {storage} from "./database/auth";
+import { useNavigate } from "react-router-dom";
+import { storage } from "./database/auth";
 
 
 import './assets/img/favicon.png';
@@ -81,13 +81,13 @@ const RecipeForm = () => {
 
     handleUpload()
       .then(() => {
-        const recipeToUpload = {...recipe, instructions, ingredients, user: user.uid, imageUrl: url}
+        const recipeToUpload = { ...recipe, instructions, ingredients, user: user.uid, imageUrl: url }
         console.log(recipeToUpload)
         recipes.addRecipe(recipeToUpload)
           .then(() => {
             navigate('/recipes')
           })
-    })
+      })
   }
 
 
@@ -95,23 +95,23 @@ const RecipeForm = () => {
   return (
     <>
       <Box>
-      <header id="header" className="header fixed-top d-flex align-items-center">
-            <div className="container d-flex align-items-center justify-content-between">
+        <header id="header" className="header fixed-top d-flex align-items-center">
+          <div className="container d-flex align-items-center justify-content-between">
 
             <a href="/" className="logo d-flex align-items-center me-auto me-lg-0">
-                <h1>Foodies<span>.</span></h1>
+              <h1>Foodies<span>.</span></h1>
             </a>
 
             <div>
-                {user ?<><a className="btn-book-a-table" href="/dashboard">Profile</a></> 
+              {user ? <><a className="btn-book-a-table" href="/dashboard">Profile</a></>
                 : <><a className="btn-book-a-table" href="/signup">Join us</a>
-                <a className="btn-book-a-table" href="/login">Log in</a></>}
+                  <a className="btn-book-a-table" href="/login">Log in</a></>}
             </div>
 
             <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
             <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
-            </div>
+          </div>
         </header>
       </Box>
 
@@ -123,100 +123,100 @@ const RecipeForm = () => {
         noValidate
         autoComplete="off"
       >
-      <Stack spacing={2}>
-        <form onSubmit={(e) => addRecipe(e)}>
-          <Item>
-            <TextField fullWidth id="name" label="Name" variant="outlined"
-                       value={recipe.name}
-                       onChange={(e) => setRecipe({ ...recipe, name: e.target.value })}
-            />
-          </Item>
-          <Item>
-            <TextField fullWidth id="Description" label="description" variant="outlined" helperText='Tell us something about the dish'
-                        value={recipe.description}
-                        onChange={(e) => setRecipe({ ...recipe, description: e.target.value })}
-            />
-          </Item>
-          <Item>
-            Ingredients
-          </Item>
-          {ingredientForm.map((ingredient, index) => {
-            return (
-              <Item key={index}>
-                <div>
-                  <TextField id="name" label="Name" variant="outlined" name={`name-${index}`} />
-                </div>
-              </Item>
-            )
-          })}
-          <Item>
-            <Button variant="contained" color="error" onClick={addIngredient} sx={{ margin: '20px' }}>
-              Add Ingredient
-            </Button>
-          </Item>
-          <Item>
-            Instructions
-          </Item>
-          {instructionForm.map((instruction, index) => {
-            return (
-              <Item key={index}>
-                <div>
-                  <TextField fullWidth multiline id="step" label={`Step ${index + 1}`} variant="outlined" name={`step-${index}`}/>
-                </div>
-              </Item>
-            )
-          })}
-          <Item>
-            <Button variant="contained" color="error" onClick={addInstruction} sx={{ margin: '20px' }}>
-              Add Instruction
-            </Button>
-          </Item>
-          <Item>
-            <TextField fullWidth id="origin" label="origin" variant="outlined"
-                        value={recipe.origin}
-                        onChange={(e) => setRecipe({ ...recipe, origin: e.target.value })}
-            />
-          </Item>
-          <Item>
-          <TextField fullWidth id="prepTime" label="prep time" variant="outlined" helperText='in minutes'
-                    value={recipe.prepTime}
-                    onChange={(e) => setRecipe({ ...recipe, prepTime: e.target.value })}
-          />
-          </Item>
-          <Item>
-          <FormControl fullWidth>
-            <InputLabel id="serving size">Serving Size</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Serving Size"
-              value={recipe.servingSize}
-              onChange={(e) => setRecipe({ ...recipe, servingSize: e.target.value })}
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-            </Select>
-          </FormControl>
+        <Stack spacing={2}>
+          <form onSubmit={(e) => addRecipe(e)}>
+            <Item>
+              <TextField fullWidth id="name" label="Name" variant="outlined"
+                value={recipe.name}
+                onChange={(e) => setRecipe({ ...recipe, name: e.target.value })}
+              />
             </Item>
-          <Item>
-          <TextField fullWidth multiline id="source" label="source" variant="outlined" helperText='Tell us something interesting about the dish'
-                    value={recipe.source}
-                    onChange={(e) => setRecipe({ ...recipe, source: e.target.value })}
-          />
+            <Item>
+              <TextField fullWidth id="Description" label="description" variant="outlined" helperText='Tell us something about the dish'
+                value={recipe.description}
+                onChange={(e) => setRecipe({ ...recipe, description: e.target.value })}
+              />
             </Item>
-          <Item>
-            <div>
+            <Item>
+              Ingredients
+            </Item>
+            {ingredientForm.map((ingredient, index) => {
+              return (
+                <Item key={index}>
+                  <div>
+                    <TextField id="name" label="Name" variant="outlined" name={`name-${index}`} />
+                  </div>
+                </Item>
+              )
+            })}
+            <Item>
+              <Button variant="contained" color="error" onClick={addIngredient} sx={{ margin: '20px' }}>
+                Add Ingredient
+              </Button>
+            </Item>
+            <Item>
+              Instructions
+            </Item>
+            {instructionForm.map((instruction, index) => {
+              return (
+                <Item key={index}>
+                  <div>
+                    <TextField fullWidth multiline id="step" label={`Step ${index + 1}`} variant="outlined" name={`step-${index}`} />
+                  </div>
+                </Item>
+              )
+            })}
+            <Item>
+              <Button variant="contained" color="error" onClick={addInstruction} sx={{ margin: '20px' }}>
+                Add Instruction
+              </Button>
+            </Item>
+            <Item>
+              <TextField fullWidth id="origin" label="origin" variant="outlined"
+                value={recipe.origin}
+                onChange={(e) => setRecipe({ ...recipe, origin: e.target.value })}
+              />
+            </Item>
+            <Item>
+              <TextField fullWidth id="prepTime" label="prep time" variant="outlined" helperText='in minutes'
+                value={recipe.prepTime}
+                onChange={(e) => setRecipe({ ...recipe, prepTime: e.target.value })}
+              />
+            </Item>
+            <Item>
+              <FormControl fullWidth>
+                <InputLabel id="serving size">Serving Size</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Serving Size"
+                  value={recipe.servingSize}
+                  onChange={(e) => setRecipe({ ...recipe, servingSize: e.target.value })}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                </Select>
+              </FormControl>
+            </Item>
+            <Item>
+              <TextField fullWidth multiline id="source" label="source" variant="outlined" helperText='Tell us something interesting about the dish'
+                value={recipe.source}
+                onChange={(e) => setRecipe({ ...recipe, source: e.target.value })}
+              />
+            </Item>
+            <Item>
+              <div>
                 <input type="file" onChange={handleChange} />
-            </div>
-          </Item>
-          <Item>
-            <Button variant="contained" color="error" type='submit' sx={{ margin: '20px' }} disabled={!file}>
-              Submit Recipe
-            </Button>
+              </div>
+            </Item>
+            <Item>
+              <Button variant="contained" color="error" type='submit' sx={{ margin: '20px' }} disabled={!file}>
+                Submit Recipe
+              </Button>
             </Item>
           </form>
-      </Stack>
+        </Stack>
       </Box>
     </>
   )

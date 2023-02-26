@@ -41,13 +41,13 @@ export default function App() {
 
     return (
             <Routes>
-                <Route path="/" index element={<Home />} />
-                <Route path="recipes" element={<Recipes recipes={allRecipes}/>} />
+                <Route path="/" index element={<Home recipes={allRecipes} />} />
+                <Route path="recipes" element={<Recipes recipes={allRecipes} />} />
                 <Route path="recipes/:id" element={<Recipe recipe={recipe} />} />
                 <Route path="recipe/new" element={<RecipeForm />} />
                 <Route path="login" element={<SignIn />} />
                 <Route path="signup" element={<SignUp />} />
-                <Route path="dashboard" element={<Dashboard recipes={allRecipes}/>} />
+                <Route path="dashboard" element={<Dashboard recipes={allRecipes} />} />
             </Routes>
     );
 }
