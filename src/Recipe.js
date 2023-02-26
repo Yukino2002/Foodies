@@ -23,6 +23,7 @@ import { Container, Box } from "@mui/system";
 export default function Recipe({ recipe }) {
     const auth = getAuth();
     const [open, setOpen] = useState(false);
+    const user = auth.currentUser;
 
     const saveRecipe = () => {
         users.saveRecipe(auth.currentUser.uid, recipe.id).then(r => console.log(r));
@@ -102,28 +103,33 @@ export default function Recipe({ recipe }) {
             <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
             <body>
-                <header id="header" className="header fixed-top d-flex align-items-center">
-                    <div className="container d-flex align-items-center justify-content-between">
+            <header id="header" className="header fixed-top d-flex align-items-center">
+            <div className="container d-flex align-items-center justify-content-between">
 
-                        <a href="/" className="logo d-flex align-items-center me-auto me-lg-0">
-                            <h1>Foodies<span>.</span></h1>
-                        </a>
+            <a href="/" className="logo d-flex align-items-center me-auto me-lg-0">
+                <h1>Foodies<span>.</span></h1>
+            </a>
 
-                        <nav id="navbar" className="navbar">
-                            <ul>
-                            </ul>
-                        </nav>
+            <nav id="navbar" className="navbar">
+                <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="recipes">Recipes</a></li>
+                <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
 
-                        <div>
-                            <a className="btn-book-a-table" href="/">Join us</a>
-                            <a className="btn-book-a-table" href="/">Log in</a>
-                        </div>
+            <div>
+                {user ? <a className="btn-book-a-table" href="/dashboard">Profile</a> 
+                : <><a className="btn-book-a-table" href="/signup">Join us</a>
+                <a className="btn-book-a-table" href="/login">Log in</a></>}
+            </div>
 
-                        <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-                        <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+            <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
-                    </div>
-                </header>
+            </div>
+        </header>
 
                 <main id="main" className='container' style={{
                     padding: '20px',
