@@ -71,16 +71,9 @@ export default function Dashboard({ recipes }) {
 
                 <nav className="header-nav ms-auto">
                     <ul className="d-flex align-items-center">
-
                         <li className="nav-item d-block d-lg-none">
                             <a className="nav-link nav-icon search-bar-toggle " href="#">
                                 <i className="bi bi-search"></i>
-                            </a>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                                <i className="bi bi-bell"></i>
-                                <span className="badge bg-primary badge-number">4</span>
                             </a>
                         </li>
                         <li className="nav-item pe-3">
