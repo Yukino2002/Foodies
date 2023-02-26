@@ -479,10 +479,10 @@ export default function Recipes({ recipes }) {
 
             <nav id="navbar" className="navbar">
                 <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="recipes">Recipes</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/">About</a></li>
+                <li><a href="/recipes">Recipes</a></li>
+                <li><a href="/">Contact</a></li>
                 </ul>
             </nav>
 
@@ -562,7 +562,7 @@ export default function Recipes({ recipes }) {
                             paddingTop: '80px',
                           }
                         } className="col-lg-12 menu-item">No recipes from this country yet!</div>) : (recipesList.map((recipe) => (
-                          <a className="col-lg-4 menu-item" href={`/recipes/${recipe.id}`}>
+                          <a className="col-lg-4 menu-item" href={`/recipes/${recipe.id}`} target="_blank">
                             <div className="glightbox"><img src={recipe.imageUrl} className="menu-img img-fluid" alt="" /></div>
                             <h4 style={
                               {
@@ -584,7 +584,7 @@ export default function Recipes({ recipes }) {
                                 fontSize: "20px",
                               }
                             }>
-                              {recipe.user}
+                              {recipe.origin}
                             </p>
                           </a>
                         )))}

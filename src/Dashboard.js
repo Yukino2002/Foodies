@@ -61,7 +61,10 @@ export default function Dashboard({ recipes }) {
                 <div className="d-flex align-items-center justify-content-between">
                     <a href="/" className="logo d-flex align-items-center">
                         <img src="assets/img/logo.png" alt="" />
-                        <span className="d-none d-lg-block">Foodies .</span>
+                        <span className="d-none d-lg-block" style={{
+                            fontSize: '40px',
+                            fontFamily: 'Amatic SC',
+                        }}>Go Back</span>
                     </a>
                     <i className="bi bi-list toggle-sidebar-btn"></i>
                 </div>
@@ -80,10 +83,13 @@ export default function Dashboard({ recipes }) {
                                 <span className="badge bg-primary badge-number">4</span>
                             </a>
                         </li>
-                        <li className="nav-item dropdown pe-3">
-                            <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <li className="nav-item pe-3">
+                            <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#">
                                 <img src="assets/img/profile-img.jpg" alt="" className="rounded-circle" />
-                                <span className="d-none d-md-block dropdown-toggle ps-2">{userObj?.username}</span>
+                                <span className="d-none d-md-block" style={{
+                                    fontSize: '25px',
+                                    fontFamily: 'Amatic SC',
+                                }}>{userObj?.username}</span>
                             </a>
                         </li>
                     </ul>
