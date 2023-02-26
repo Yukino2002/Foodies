@@ -17,7 +17,7 @@
     Discover, share, and savor global flavors with our recipe app!
     <br />
     <br />
-    <a href="https://github.com/Yukino2002/Foodies">View Demo</a>
+    <a href="https://youtu.be/alx-gzNEVF4">View Demo</a>
     ·
     <a href="https://github.com/Yukino2002/Foodies/issues">Report Bug</a>
     ·
@@ -144,8 +144,8 @@ Before getting a local copy up, you must ensure that you have the necessary soft
 
 ### Demo Links
 
-* [Website](https://foodies-1c3e3.web.app/)
-* [Tutorial video](https://youtu.be/4Z0ZQZ1ZQ0o)
+* [Website](http://foodiesoftheworld.co/)
+* [Tutorial video](https://youtu.be/alx-gzNEVF4)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -202,6 +202,7 @@ Project Link: [https://github.com/Yukino2002/Foodies](https://github.com/Yukino2
 
 * [Design Ideas](https://bootstrapmade.com/)
 * [Logo](https://lovepik.com/)
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
