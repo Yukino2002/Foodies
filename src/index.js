@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route, useMatch } from 'react-router-dom';
+import { HashRouter, Routes, Route, useMatch } from 'react-router-dom';
 import Home from './Home';
 import Recipes from './Recipes';
 import recipes from './database/services/recipes';
@@ -55,9 +55,9 @@ export default function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </Provider>
 );
 
