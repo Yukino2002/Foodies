@@ -27,6 +27,7 @@ export default function Recipe({ recipe }) {
     const [open, setOpen] = useState(false);
     const [phoneNo, setPhoneNo] = useState('');
     const user = auth.currentUser;
+    console.log(recipe)
 
     const saveRecipe = () => {
         users.saveRecipe(auth.currentUser.uid, recipe.id).then(r => console.log(r));

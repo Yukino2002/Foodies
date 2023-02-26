@@ -70,15 +70,11 @@ const RecipeForm = () => {
   const addRecipe = (e) => {
     e.preventDefault()
     const ingredients = ingredientForm.map((ingredient, index) => {
-      return {
-        name: e.target[`name-${index}`].value
-      }
+      return e.target[`name-${index}`].value
     })
 
     const instructions = instructionForm.map((instruction, index) => {
-      return {
-        step: e.target[`step-${index}`].value
-      }
+      return e.target[`step-${index}`].value
     })
 
     const user = auth.currentUser;
