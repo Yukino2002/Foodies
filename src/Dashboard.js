@@ -10,7 +10,33 @@ import './assets2/vendor/remixicon/remixicon.css';
 import './assets2/vendor/simple-datatables/style.css';
 import './assets2/css/style.css';
 
-export default function Dashboard() {
+import { getAuth } from 'firebase/auth';
+import users from './database/services/users';
+
+export default function Dashboard({ recipes }) {
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const [userObj, setUserObj] = React.useState({});
+    const [myRecipes, setMyRecipes] = React.useState([]);
+    const [savedRecipes, setSavedRecipes] = React.useState([]);
+    const [heading, setHeading] = React.useState('My Recipes');
+
+    users.getUser(user?.uid).then((data) => {
+        const savedRecipesTemp = recipes.filter((recipe) => {
+            return data.savedRecipes.includes(recipe.id);
+        });
+        const myRecipesTemp = recipes.filter((recipe) => {
+            return recipe.user === user?.uid;
+        });
+
+        setUserObj(data);
+        setMyRecipes(myRecipesTemp);
+        setSavedRecipes(savedRecipesTemp);
+
+        // console.log(myRecipesTemp);
+        // console.log(savedRecipesTemp);
+    });
 
     return (
         <>
@@ -25,374 +51,185 @@ export default function Dashboard() {
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
             <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
-            <header id="header" class="header fixed-top d-flex align-items-center" style={
+            <header id="header" className="header fixed-top d-flex align-items-center" style={
                 {
                     backgroundColor: '#fff',
                     color: 'white',
                 }
             }>
 
-                <div class="d-flex align-items-center justify-content-between">
-                    <a href="index.html" class="logo d-flex align-items-center">
+                <div className="d-flex align-items-center justify-content-between">
+                    <a href="/" className="logo d-flex align-items-center">
                         <img src="assets/img/logo.png" alt="" />
-                        <span class="d-none d-lg-block">Foodies .</span>
+                        <span className="d-none d-lg-block">Foodies .</span>
                     </a>
-                    <i class="bi bi-list toggle-sidebar-btn"></i>
+                    <i className="bi bi-list toggle-sidebar-btn"></i>
                 </div>
 
-                <nav class="header-nav ms-auto">
-                    <ul class="d-flex align-items-center">
+                <nav className="header-nav ms-auto">
+                    <ul className="d-flex align-items-center">
 
-                        <li class="nav-item d-block d-lg-none">
-                            <a class="nav-link nav-icon search-bar-toggle " href="#">
-                                <i class="bi bi-search"></i>
+                        <li className="nav-item d-block d-lg-none">
+                            <a className="nav-link nav-icon search-bar-toggle " href="#">
+                                <i className="bi bi-search"></i>
                             </a>
                         </li>
-
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-bell"></i>
-                                <span class="badge bg-primary badge-number">4</span>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                                <i className="bi bi-bell"></i>
+                                <span className="badge bg-primary badge-number">4</span>
                             </a>
-
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                                <li class="dropdown-header">
-                                    You have 4 new notifications
-                                    <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-
-                                <li class="notification-item">
-                                    <i class="bi bi-exclamation-circle text-warning"></i>
-                                    <div>
-                                        <h4>Lorem Ipsum</h4>
-                                        <p>Quae dolorem earum veritatis oditseno</p>
-                                        <p>30 min. ago</p>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-
-                                <li class="notification-item">
-                                    <i class="bi bi-x-circle text-danger"></i>
-                                    <div>
-                                        <h4>Atque rerum nesciunt</h4>
-                                        <p>Quae dolorem earum veritatis oditseno</p>
-                                        <p>1 hr. ago</p>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-
-                                <li class="notification-item">
-                                    <i class="bi bi-check-circle text-success"></i>
-                                    <div>
-                                        <h4>Sit rerum fuga</h4>
-                                        <p>Quae dolorem earum veritatis oditseno</p>
-                                        <p>2 hrs. ago</p>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-
-                                <li class="notification-item">
-                                    <i class="bi bi-info-circle text-primary"></i>
-                                    <div>
-                                        <h4>Dicta reprehenderit</h4>
-                                        <p>Quae dolorem earum veritatis oditseno</p>
-                                        <p>4 hrs. ago</p>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li class="dropdown-footer">
-                                    <a href="#">Show all notifications</a>
-                                </li>
-
-                            </ul>
-
                         </li>
-
-                        <li class="nav-item dropdown pe-3">
-
-                            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                                <img src="assets/img/profile-img.jpg" alt="" class="rounded-circle" />
-                                <span class="d-none d-md-block dropdown-toggle ps-2">Malavika Harikumar</span>
+                        <li className="nav-item dropdown pe-3">
+                            <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                                <img src="assets/img/profile-img.jpg" alt="" className="rounded-circle" />
+                                <span className="d-none d-md-block dropdown-toggle ps-2">{userObj?.username}</span>
                             </a>
-
                         </li>
-
                     </ul>
                 </nav>
-
             </header>
 
-            <aside id="sidebar" class="sidebar" style={{
+            <aside id="sidebar" className="sidebar" style={{
                 backgroundColor: '#f6f9ff',
             }}>
 
-                <ul class="sidebar-nav" id="sidebar-nav">
+                <ul className="sidebar-nav" id="sidebar-nav">
 
-                    <li class="nav-item" style={{
+                    <li className="nav-item">
+                        <button style={{
+                            all: 'unset',
+                            width: '100%',
+                        }} onClick={() => {
+                            setHeading('My Recipes');
+                        }}>
+                            <a className="nav-link collapsed">
+                                <i className="bi bi-person"></i>
+                                <span style={{
+                                    fontFamily
+                                        : 'Amatic SC',
+                                    fontSize: '30px',
+                                }}>My Recipes</span>
+                            </a>
+                        </button>
 
-                    }}>
-                        <a class="nav-link collapsed" href="/">
-                            <i class="bi bi-person"></i>
-                            <span>Profile</span>
-                        </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="/">
-                            <i class="bi bi-gem"></i>
-                            <span>Icons</span>
-                        </a>
-                    </li>
+                    <li className="nav-item">
+                        <button style={{
+                            all: 'unset',
+                            width: '100%',
+                        }} onClick={() => {
+                            setHeading('Saved Recipes');
+                        }}>
+                            <a className="nav-link collapsed">
+                                <i className="bx bx-heart"></i>
+                                <span style={{
+                                    fontFamily
+                                        : 'Amatic SC',
+                                    fontSize: '30px',
+                                }}>Saved Recipes</span>
+                            </a>
+                        </button>
 
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="/">
-                            <i class="bx bx-heart"></i>
-                            <span>Favourites</span>
-                        </a>
-                    </li>
-
-
-
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="/">
-                            <i class="bi bi-question-circle"></i>
-                            <span>F.A.Q</span>
-                        </a>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="/">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                            <span>Logout</span>
-                        </a>
                     </li>
 
                 </ul>
 
             </aside>
 
-            <main id="main" class="main" style={{
+            <main id="main" className="main" style={{
                 backgroundColor: '#f6f9ff',
             }}>
 
-                <div class="pagetitle" style={{
+                <div className="pagetitle" style={{
                     backgroundColor: '#f6f9ff',
                 }}>
-                    <h1>Dashboard</h1>
-                    <nav>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                    </nav>
+                    <h1 style={
+                        {
+                            padding: '20px',
+                            fontSize: '60px',
+                            fontWeight: 'bold',
+                            fontFamily
+                                : 'Amatic SC',
+                        }
+                    }>{heading}</h1>
                 </div>
 
-                <section class="section dashboard" style={{
+                <section className="section dashboard" style={{
                     backgroundColor: '#f6f9ff',
+                    paddingTop: '40px',
                 }}>
-                    <div class="row">
+                    <div className="row">
 
 
-                        <div class="col-lg-8">
-                            <div class="row">
+                        <div className="col-lg-12">
+                            <div className="row">
 
+                                {heading === 'My Recipes' ? myRecipes.map((recipe) => (
+                                    <div className="col-xxl-4 col-md-6">
+                                        <a href={`/recipes/${recipe.id}`} target="_blank">
+                                            <div className="card info-card sales-card">
+                                                <div className="card-body">
+                                                    <h5 className="card-title" style={{
+                                                        fontFamily
+                                                            : 'Amatic SC',
+                                                        fontSize: '40px',
+                                                    }}>{recipe.name}</h5>
+                                                    <div className="d-flex align-items-center">
 
-                                <div class="col-xxl-4 col-md-6">
-                                    <div class="card info-card sales-card">
+                                                        <img src={recipe.imageUrl} alt="" height={120} />
 
-                                        <div class="filter">
-                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li class="dropdown-header text-start">
-                                                    <h6>Filter</h6>
-                                                </li>
-
-                                                <li><a class="dropdown-item" href="#">Today</a></li>
-                                                <li><a class="dropdown-item" href="#">This Month</a></li>
-                                                <li><a class="dropdown-item" href="#">This Year</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Sales <span>| Today</span></h5>
-
-                                            <div class="d-flex align-items-center">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-cart"></i>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <h6>145</h6>
-                                                    <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                                                        <div className="ps-3">
+                                                            <span className="text-muted small pt-2 ps-1">{recipe.description.substring(0, 100)}</span>
+                                                            <br />
+                                                            <span className="text-muted small pt-2 ps-1"><strong>Preparation time:</strong> {recipe.prepTime.substring(0, 100)}</span>
+                                                            <br />
+                                                            <span className="text-muted small pt-2 ps-1"><strong>Serving size:</strong> {recipe.servingSize}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-
+                                        </a>
                                     </div>
-                                </div>
+                                )) : heading === 'Saved Recipes' ? savedRecipes.map((recipe) => (
+                                    <div className="col-xxl-4 col-md-6">
+                                        <a href={`/recipes/${recipe.id}`} target="_blank">
+                                            <div className="card info-card sales-card">
+                                                <div className="card-body">
+                                                    <h5 className="card-title" style={{
+                                                        fontFamily
+                                                            : 'Amatic SC',
+                                                        fontSize: '40px',
+                                                    }}>{recipe.name}</h5>
+                                                    <div className="d-flex align-items-center">
 
-                                <div class="col-xxl-4 col-md-6">
-                                    <div class="card info-card revenue-card">
+                                                        <img src={recipe.imageUrl} alt="" height={120} />
 
-                                        <div class="filter">
-                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li class="dropdown-header text-start">
-                                                    <h6>Filter</h6>
-                                                </li>
-
-                                                <li><a class="dropdown-item" href="#">Today</a></li>
-                                                <li><a class="dropdown-item" href="#">This Month</a></li>
-                                                <li><a class="dropdown-item" href="#">This Year</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Revenue <span>| This Month</span></h5>
-
-                                            <div class="d-flex align-items-center">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-currency-dollar"></i>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <h6>$3,264</h6>
-                                                    <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                                                        <div className="ps-3">
+                                                            <span className="text-muted small pt-2 ps-1">{recipe.description.substring(0, 100)}</span>
+                                                            <br />
+                                                            <span className="text-muted small pt-2 ps-1"><strong>Preparation time:</strong> {recipe.prepTime.substring(0, 100)}</span>
+                                                            <br />
+                                                            <span className="text-muted small pt-2 ps-1"><strong>Serving size:</strong> {recipe.servingSize}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-
+                                        </a>
                                     </div>
-                                </div>
-
-
-                                <div class="col-xxl-4 col-xl-12">
-
-                                    <div class="card info-card customers-card">
-
-                                        <div class="filter">
-                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <li class="dropdown-header text-start">
-                                                    <h6>Filter</h6>
-                                                </li>
-
-                                                <li><a class="dropdown-item" href="#">Today</a></li>
-                                                <li><a class="dropdown-item" href="#">This Month</a></li>
-                                                <li><a class="dropdown-item" href="#">This Year</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                                            <div class="d-flex align-items-center">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-people"></i>
-                                                </div>
-                                                <div class="ps-3">
-                                                    <h6>1244</h6>
-                                                    <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
+                                )) : <div style={
+                                    {
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        fontSize: '90px',
+                                        fontWeight: 'bold',
+                                        fontFamily: 'Amatic SC',
+                                        paddingTop: '80px',
+                                    }
+                                } className="col-lg-12 menu-item">Nothing to show!</div>}
                             </div>
-                        </div>
-
-                        <div class="col-lg-4">
-
-                            <div class="card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card">
-                                    <div class="filter">
-                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                            <li class="dropdown-header text-start">
-                                                <h6>Filter</h6>
-                                            </li>
-
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="card-body pb-0">
-                                        <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
-
-                                        <div class="news">
-                                            <div class="post-item clearfix">
-                                                <img src="assets/img/news-1.jpg" alt="" />
-                                                <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-                                                <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-                                            </div>
-
-                                            <div class="post-item clearfix">
-                                                <img src="assets/img/news-2.jpg" alt="" />
-                                                <h4><a href="#">Quidem autem et impedit</a></h4>
-                                                <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-                                            </div>
-
-                                            <div class="post-item clearfix">
-                                                <img src="assets/img/news-3.jpg" alt="" />
-                                                <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-                                                <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-                                            </div>
-
-                                            <div class="post-item clearfix">
-                                                <img src="assets/img/news-4.jpg" alt="" />
-                                                <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-                                                <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-                                            </div>
-
-                                            <div class="post-item clearfix">
-                                                <img src="assets/img/news-5.jpg" alt="" />
-                                                <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-                                                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
                         </div>
                     </div>
                 </section>

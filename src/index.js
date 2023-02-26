@@ -47,7 +47,7 @@ export default function App() {
                 <Route path="recipe/new" element={<RecipeForm />} />
                 <Route path="login" element={<SignIn />} />
                 <Route path="signup" element={<SignUp />} />
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="dashboard" element={<Dashboard recipes={allRecipes}/>} />
             </Routes>
     );
 }
