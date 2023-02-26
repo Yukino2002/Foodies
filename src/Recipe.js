@@ -162,7 +162,7 @@ export default function Recipe({ recipe }) {
                                     <p><span style={{
                                         fontSize: '70px',
                                         padding: '15px',
-                                    }}>{}</span></p>
+                                    }}>{recipe.name}</span></p>
                                 </div>
                                 <Container style={{
                                     display: 'flex',
