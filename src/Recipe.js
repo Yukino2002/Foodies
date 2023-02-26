@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import message from "./database/services/message";
+import { TextField } from "@mui/material";
 
 import './assets/img/favicon.png';
 import './assets/img/apple-touch-icon.png';
@@ -23,6 +25,7 @@ import { Container, Box } from "@mui/system";
 export default function Recipe({ recipe }) {
     const auth = getAuth();
     const [open, setOpen] = useState(false);
+    const [phoneNo, setPhoneNo] = useState('');
     const user = auth.currentUser;
 
     const saveRecipe = () => {
@@ -41,6 +44,14 @@ export default function Recipe({ recipe }) {
 
         setOpen(false);
     };
+
+    const sendRecipe = () => {
+        const recipeString = JSON.stringify(recipe);
+        message.sendMessage(recipeString, phoneNo).then(r => {
+            console.log(r)
+            setPhoneNo('');
+        });
+    }
 
     const action = (
         <React.Fragment>
@@ -235,6 +246,19 @@ export default function Recipe({ recipe }) {
                                     onClick={saveRecipe}
                                 >
                                     Save this Recipe
+                                </Button>
+                                <TextField
+                                    fullWidth
+                                    id='phone-no'
+                                    label='Phone Number'
+                                    variant='outlined'
+                                    value={phoneNo}
+                                    onChange={(e) => setPhoneNo(e.target.value)}
+                                />
+                                <Button variant="contained" color="error" sx={{ margin: '20px', width: '25%', borderRadius: '60px', fontSize: '15px'}}
+                                    onClick={sendRecipe}
+                                >
+                                    Send this recipe to me
                                 </Button>
                             </div>
 
