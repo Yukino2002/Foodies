@@ -21,29 +21,25 @@ const Comments = ({ id }) => {
   }, []);
 
   return (
-    allComments.map((comment, index) => {
-      return (
-        <div key={index} style={{
-          padding: '15px',
-          paddingTop: '0px',
-        }}>
-          <Paper sx={{ p: 2, margin: 'auto' }}>
-            <Grid container wrap="nowrap" spacing={2}>
-              <Grid item >
-                <Avatar alt="Remy Sharp" src='url(google.com)' sx={{alignItems: 'center', display: 'flex'}} />
+      allComments.map((comment, index) => {
+        return (
+          <div key={index}>
+            <Paper>
+              <Grid container wrap="nowrap" spacing={2}>
+                <Grid item>
+                  <Avatar alt="Remy Sharp" src='url(google.com)' />
+                </Grid>
+                <Grid justifyContent="left" item xs zeroMinWidth>
+                  <h4 style={{ margin: 0, textAlign: "left" }}>{comment.user}</h4>
+                  <p style={{ textAlign: "left" }}>
+                    {comment.content}
+                  </p>
+                </Grid>
               </Grid>
-              <Grid justifyContent="left" item xs zeroMinWidth>
-                <h4 style={{ margin: 0, textAlign: "left" }}>{comment.user}</h4>
-                <p style={{ textAlign: "left" }}>
-                  {comment.content}
-                </p>
-              </Grid>
-            </Grid>
-            <Divider variant="fullWidth" style={{ margin: "5px 0" }} />
-          </Paper>
-        </div>
-      )
-    })
+              <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
+              </Paper>
+            </div>
+      )})
   )
 }
 

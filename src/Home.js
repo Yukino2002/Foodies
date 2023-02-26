@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet";
+import { getAuth } from "firebase/auth";
 import './assets/img/favicon.png';
 import './assets/img/apple-touch-icon.png';
 import './assets/vendor/bootstrap/css/bootstrap.min.css';
@@ -8,11 +9,12 @@ import './assets/vendor/aos/aos.css';
 import './assets/vendor/glightbox/css/glightbox.min.css';
 import './assets/vendor/swiper/swiper-bundle.min.css';
 import './assets/css/main.css';
-
+import { useSelector } from 'react-redux';
 import heroImg from './assets/img/hero-img.png';
 import aboutImg from './assets/img/about.jpg'
 
 class Home extends Component {
+
   render() {
     const aboutStyle = {
       backgroundImage:
@@ -44,7 +46,7 @@ class Home extends Component {
           <header id="header" className="header fixed-top d-flex align-items-center">
             <div className="container d-flex align-items-center justify-content-between">
 
-              <a href="index.html" className="logo d-flex align-items-center me-auto me-lg-0">
+              <a href="/" className="logo d-flex align-items-center me-auto me-lg-0">
                 <h1>Foodies<span>.</span></h1>
               </a>
 
@@ -58,8 +60,9 @@ class Home extends Component {
               </nav>
 
               <div>
-                <a className="btn-book-a-table" href="/">Join us</a>
-                <a className="btn-book-a-table" href="/">Log in</a>
+                {this.user ? <a className="btn-book-a-table" href="/dashboard">Profile</a> 
+                : <><a className="btn-book-a-table" href="/signup">Join us</a>
+                  <a className="btn-book-a-table" href="/login">Log in</a></>}
               </div>
 
               <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
