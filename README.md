@@ -115,10 +115,10 @@ Before getting a local copy up, you must ensure that you have the necessary soft
     }
    ```
 4. Run the following code to set up the server for sending messages through twilio
-  ```
-  cd server
-  npm install
-  ```
+	```
+	cd server
+	npm install
+	```
 5. Create a file named .env in the server directory and replace it with the below code
 	```
 	TWILIO_ACCOUNT_SID=YOUR_ACCOUNT_SID
