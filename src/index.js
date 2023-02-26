@@ -11,7 +11,7 @@ import SignIn from "./Login";
 import SignUp from "./Signup";
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './reducers/userReducer';
+import userReducer from './Reducers/userReducer';
 
 const store = configureStore({
   reducer: {
