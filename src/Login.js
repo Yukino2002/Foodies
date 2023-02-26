@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
-import { setUser } from './Reducers/userReducer';
+import { setUser } from './reducers/userReducer';
 import { getAuth } from "firebase/auth";
 
 import users from './database/services/users';
