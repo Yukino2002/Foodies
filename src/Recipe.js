@@ -23,9 +23,6 @@ import { Container, Box } from "@mui/system";
 export default function Recipe({ recipe }) {
     const auth = getAuth();
     const [open, setOpen] = useState(false);
-    const user = auth.currentUser;
-
-    
 
     const saveRecipe = () => {
         users.saveRecipe(auth.currentUser.uid, recipe.id).then(r => console.log(r));
@@ -35,25 +32,28 @@ export default function Recipe({ recipe }) {
     const handleClick = () => {
         setOpen(true);
     };
-    
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
-    
+
         setOpen(false);
     };
 
     const action = (
         <React.Fragment>
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={handleClose}
-          >
-            <CloseIcon fontSize="small" />
-          </IconButton>
+            <Button color="secondary" size="small" onClick={handleClose}>
+                UNDO
+            </Button>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
         </React.Fragment>
     );
 
@@ -105,93 +105,137 @@ export default function Recipe({ recipe }) {
                 <header id="header" className="header fixed-top d-flex align-items-center">
                     <div className="container d-flex align-items-center justify-content-between">
 
-                    <a href="/" className="logo d-flex align-items-center me-auto me-lg-0">
-                        <h1>Foodies<span>.</span></h1>
-                    </a>
+                        <a href="/" className="logo d-flex align-items-center me-auto me-lg-0">
+                            <h1>Foodies<span>.</span></h1>
+                        </a>
 
-                    <nav id="navbar" className="navbar">
-                        <ul>
-                        <li><a href="#hero">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="recipes">Recipes</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </nav>
+                        <nav id="navbar" className="navbar">
+                            <ul>
+                            </ul>
+                        </nav>
 
-                    <div>
-                        {user ? <a className="btn-book-a-table" href="/dashboard">Profile</a> 
-                        : <><a className="btn-book-a-table" href="/signup">Join us</a>
-                        <a className="btn-book-a-table" href="/login">Log in</a></>}
-                    </div>
+                        <div>
+                            <a className="btn-book-a-table" href="/">Join us</a>
+                            <a className="btn-book-a-table" href="/">Log in</a>
+                        </div>
 
-                    <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-                    <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+                        <i className="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+                        <i className="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
                     </div>
                 </header>
 
                 <main id="main" className='container' style={{
                     padding: '20px',
+                    backgroundColor: 'white',
                 }}>
                     <Box
                         sx={{
-                            backgroundColor: 'rgba(0, 0, 0, 0.175)',
+                            backgroundColor: 'white',
                             width: '100%',
                             padding: '20px',
                             borderRadius: '10px',
                         }}>
-                        <section id="menu" className="menu">
+                        <section id="menu" className="menu" style={{
+                            paddingTop: '10px',
+                        }}>
                             <div className="container">
                                 <div className="section-header">
-                                    <p><span>{recipe.name}</span></p>
+                                    <p><span style={{
+                                        fontSize: '70px',
+                                        padding: '15px',
+                                    }}>{recipe.name}</span></p>
                                 </div>
-                                <div className="container">
+                                <Container style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexDirection: 'column',
+                                    paddingBottom: '40px',
+                                }}>
+                                    <img src={recipe.imageUrl} alt="recipe" style={{
+                                        height: '500px',
+                                        objectFit: 'contain',
+                                    }} />
+                                </Container>
+                                <div className="container" style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexDirection: 'column',
+                                    fontSize: '20px',
+                                    paddingBottom: '15px',
+                                }}>
                                     {recipe.description}
                                 </div>
                                 <div >
-                                    <Container maxWidth='100%' >
-                                        <img src={recipe.imageUrl} alt="recipe" style={{
-                                            width: '800px',
-                                            height: '600px',
-                                            objectFit: 'contain',
-                                        }} />
-                                    </Container>
-                                    <div className="section-header">
+
+                                    <div className="section-header" style={{
+                                        paddingBottom: '20px',
+                                    }}>
                                         <p>Ingredients</p>
                                     </div>
                                     <ul>
                                         {recipe?.ingredients?.map((ingredient, index) => {
                                             return (
-                                                <li key={index}>
+                                                <li key={index} style={{
+                                                    fontSize: '20px',
+                                                    paddingBottom: '5px',
+                                                }}>
                                                     {ingredient}
                                                 </li>
                                             )
                                         })}
                                     </ul>
-                                    <div className="section-header">
+                                    <div className="section-header" style={{
+                                        paddingBottom: '20px'
+                                    }}>
                                         <p>Instructions</p>
                                     </div>
                                     <ul>
                                         {recipe?.instructions?.map((instruction, index) => {
                                             return (
-                                                <li key={index}>
+                                                <li key={index} style={{
+                                                    fontSize: '20px',
+                                                    paddingBottom: '5px',
+                                                }}>
                                                     {instruction}
                                                 </li>
                                             )
                                         })}
                                     </ul>
-                                    <div className="section-header">
+                                    <div className="section-header" style={{
+                                        paddingBottom: '20px',
+                                    }}>
                                         <p>Source</p>
                                     </div>
-                                    {recipe.source}
+                                    <p style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'column',
+                                    }}>
+                                        {recipe.source}
+                                    </p>
                                 </div>
                             </div>
-                            <Button variant="contained" color="error" sx={{ margin: '20px', width: '100% '}}
-                            onClick={saveRecipe}
-                            >
-                                Save this Recipe
-                            </Button>
-                            <section>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                            }}>
+                                <Button variant="contained" color="error" sx={{ margin: '20px', width: '25%', borderRadius: '60px', fontSize: '15px'}}
+                                    onClick={saveRecipe}
+                                >
+                                    Save this Recipe
+                                </Button>
+                            </div>
+
+                            <section style={{
+                                paddingTop: '30px',
+                                paddingBottom: '30px',
+                            }}>
                                 <div className="section-header">
                                     <p><span>Reviews</span></p>
                                 </div>
