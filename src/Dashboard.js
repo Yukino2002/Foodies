@@ -159,7 +159,9 @@ export default function Dashboard({ recipes }) {
                             fontFamily
                                 : 'Amatic SC',
                         }
-                    }>{heading}</h1>
+                    }>{heading} {heading === 'My Recipes' ? <span style={{
+                        fontSize: '50px',
+                    }}><a href="/recipe/new" target="_blank"><i class='bx bx-plus-circle'></i></a></span>: <span></span>}</h1>
                 </div>
 
                 <section className="section dashboard" style={{
